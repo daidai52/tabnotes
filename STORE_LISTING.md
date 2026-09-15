@@ -41,17 +41,19 @@ WHAT YOU GET
 
 • Per-tab notes — your note follows the page, so it survives closing and restoring the tab
 • Search across every note, title, and tag
-• Saved sessions — snapshot all your open tabs and restore them later
+• Saved sessions — snapshot all your open tabs and restore them later, and add or remove individual tabs from a saved session
+• Edit any note in place, without reopening the page
 • Star the notes that matter
+• Click any note to jump to that tab, or open it if it is closed
 • Works in Chrome's side panel, so it stays out of your way
 
 PRIVATE BY DESIGN
 
 TabNotes has no server, no account, and no analytics. Your notes are stored in your own browser and never leave your computer. There is nothing to sign up for and nothing to leak.
 
-FREE AND PRO
+FREE
 
-The free version includes 50 notes — enough to find out whether this fits how you work. Pro removes the limit and adds unlimited sessions.
+Every feature is available with no account, no sign-up, and no time limit. The interface is available in English and Simplified Chinese.
 
 Questions or feature requests: the issue tracker in the support link is the fastest way to reach the developer.
 ```
