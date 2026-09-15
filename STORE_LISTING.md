@@ -16,11 +16,27 @@ Give every tab a note. Find any tab again by what it was for — not just its ti
 
 ## Category
 
-`Productivity` → `Workflow`
+AMO: `Tabs`
+Chrome / Edge: `Productivity` → `Workflow`
 
 ## Language
 
 English
+
+## Tags (AMO only)
+
+AMO uses a fixed tag vocabulary — there is no `tabs`, `notes`, or
+`productivity` tag to pick. Only two entries in that vocabulary describe
+TabNotes honestly:
+
+```
+search, privacy
+```
+
+`search` maps to the core feature. `privacy` maps to the local-only storage
+model. Deliberately skipped: `security` reads as a security-tool tag
+(alongside antivirus and password managers) and would pull in the wrong
+audience.
 
 ## Detailed description
 
