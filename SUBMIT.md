@@ -49,12 +49,21 @@ npm run zip && npm run zip:firefox
 1. Sign in with a Firefox account. No fee.
 2. **Submit a New Add-on** → *On this site* → upload
    `.output/tabnotes-0.1.0-firefox.zip`.
-3. When it asks for source code, upload
+3. The package already declares
+   `browser_specific_settings.gecko.data_collection_permissions: { required:
+   ["none"] }` in its manifest. AMO has required this for every **new** add-on
+   since 2025-11-03, and rejects the upload outright without it — the error
+   reads *"The data_collection_permissions property is missing"*. `"none"` is
+   accurate: TabNotes transmits nothing.
+4. When it asks for source code, upload
    `.output/tabnotes-0.1.0-sources.zip`. It asks because the build is a bundle;
    supplying the sources keeps the review moving.
-4. Paste the listing copy, upload the screenshots, set the privacy policy URL.
-5. Firefox opens TabNotes in the **sidebar**, not a side panel — that is
+5. Paste the listing copy, upload the screenshots, set the privacy policy URL.
+6. Firefox opens TabNotes in the **sidebar**, not a side panel — that is
    expected, and WXT maps it automatically via `sidebar_action`.
+7. If AMO rejects the Manifest V2 package, build the MV3 variant instead:
+   `npx wxt build -b firefox --mv3` then zip `.output/firefox-mv3`. It carries
+   the same `data_collection_permissions` declaration.
 
 ## 3. Chrome Web Store — $5 one-time
 
