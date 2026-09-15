@@ -21,13 +21,20 @@ export default defineConfig({
       96: "icon/96.png",
       128: "icon/128.png",
     },
-    // AMO rejects an unsigned submission without a stable add-on id.
     ...(browser === "firefox"
       ? {
           browser_specific_settings: {
             gecko: {
+              // AMO rejects an unsigned submission without a stable add-on id.
               id: "tabnotes@daidai52.github.io",
               strict_min_version: "109.0",
+              // Mandatory for new AMO submissions since 2025-11-03. "none" must
+              // be the sole entry, and it is accurate here: every note, session,
+              // and page title stays in chrome.storage.local — the extension has
+              // no server and transmits nothing.
+              data_collection_permissions: {
+                required: ["none"],
+              },
             },
           },
         }
