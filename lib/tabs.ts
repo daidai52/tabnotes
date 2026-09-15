@@ -1,3 +1,4 @@
+import { browser } from "./browser";
 import { noteKey } from "./storage";
 
 /**
@@ -10,16 +11,16 @@ import { noteKey } from "./storage";
  */
 export async function focusOrOpenTab(url: string): Promise<void> {
   const target = noteKey(url);
-  const tabs = await chrome.tabs.query({});
+  const tabs = await browser.tabs.query({});
   const existing = tabs.find((t) => t.url && noteKey(t.url) === target);
 
   if (existing?.id != null) {
-    await chrome.tabs.update(existing.id, { active: true });
+    await browser.tabs.update(existing.id, { active: true });
     if (existing.windowId != null) {
-      await chrome.windows.update(existing.windowId, { focused: true });
+      await browser.windows.update(existing.windowId, { focused: true });
     }
     return;
   }
 
-  await chrome.tabs.create({ url });
+  await browser.tabs.create({ url });
 }

@@ -22,6 +22,18 @@ const note = (ok, label, detail = "") => {
 };
 
 console.log("=== building ===\n");
+
+// Windows keeps a handle on a zip that was just copied or read, and WXT fails
+// with a bare UNKNOWN error rather than retrying. Clear the previous artifacts
+// first so the build is repeatable.
+for (const f of fs.readdirSync(".output").filter((x) => x.endsWith(".zip"))) {
+  try {
+    fs.unlinkSync(path.join(".output", f));
+  } catch {
+    /* locked; the build below will report it */
+  }
+}
+
 for (const cmd of ["npx wxt zip", "npx wxt zip -b firefox"]) {
   const hits = out(cmd + " 2>&1")
     .split("\n")

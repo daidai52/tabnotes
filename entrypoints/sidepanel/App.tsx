@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+import type { Browser } from "wxt/browser";
 import { i18n } from "#i18n";
+import { browser } from "@/lib/browser";
 import type { Session, TabNote } from "@/lib/types";
 import { FREE_NOTE_LIMIT } from "@/lib/types";
 import {
@@ -26,7 +28,7 @@ export default function App() {
   const [notes, setNotes] = useState<TabNote[]>([]);
   const [total, setTotal] = useState(0);
   const [sessions, setSessions] = useState<Session[]>([]);
-  const [currentTab, setCurrentTab] = useState<chrome.tabs.Tab | null>(null);
+  const [currentTab, setCurrentTab] = useState<Browser.tabs.Tab | null>(null);
   const [draft, setDraft] = useState("");
   const [premium, setPremiumState] = useState(false);
   const [hitLimit, setHitLimit] = useState(false);
@@ -41,11 +43,11 @@ export default function App() {
     // The side panel stays mounted across tab switches, so re-read the active
     // tab whenever it changes rather than only on mount.
     const onActivated = () => void refresh();
-    chrome.tabs.onActivated.addListener(onActivated);
-    chrome.tabs.onUpdated.addListener(onActivated);
+    browser.tabs.onActivated.addListener(onActivated);
+    browser.tabs.onUpdated.addListener(onActivated);
     return () => {
-      chrome.tabs.onActivated.removeListener(onActivated);
-      chrome.tabs.onUpdated.removeListener(onActivated);
+      browser.tabs.onActivated.removeListener(onActivated);
+      browser.tabs.onUpdated.removeListener(onActivated);
     };
   }, []);
 
@@ -54,7 +56,7 @@ export default function App() {
   }, [query]);
 
   async function refresh() {
-    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    const [tab] = await browser.tabs.query({ active: true, currentWindow: true });
     setCurrentTab(tab ?? null);
     setPremiumState(await getPremium());
     setSessions(await getSessions());
@@ -143,7 +145,7 @@ export default function App() {
   }
 
   async function handleSaveSession() {
-    const tabs = await chrome.tabs.query({ currentWindow: true });
+    const tabs = await browser.tabs.query({ currentWindow: true });
     const name = new Date().toLocaleString(undefined, {
       month: "short",
       day: "numeric",
@@ -161,7 +163,7 @@ export default function App() {
 
   async function handleRestore(session: Session) {
     for (const tab of session.tabs) {
-      await chrome.tabs.create({ url: tab.url, active: false });
+      await browser.tabs.create({ url: tab.url, active: false });
     }
   }
 

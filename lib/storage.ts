@@ -1,8 +1,9 @@
+import { browser } from "./browser";
 import type { Session, TabNote } from "./types";
 import { FREE_NOTE_LIMIT } from "./types";
 
 /**
- * All data lives in chrome.storage.local — no backend, no account, no per-use
+ * All data lives in browser.storage.local — no backend, no account, no per-use
  * cost. Keys are prefixed so a single storage area can hold both collections.
  */
 const NOTES_KEY = "tabnotes:notes";
@@ -25,7 +26,7 @@ function noteKey(url: string): string {
 }
 
 export async function getNotes(): Promise<Record<string, TabNote>> {
-  const raw = await chrome.storage.local.get(NOTES_KEY);
+  const raw = await browser.storage.local.get(NOTES_KEY);
   return (raw[NOTES_KEY] as Record<string, TabNote>) ?? {};
 }
 
@@ -63,14 +64,14 @@ export async function saveNote(
   };
 
   notes[key] = note;
-  await chrome.storage.local.set({ [NOTES_KEY]: notes });
+  await browser.storage.local.set({ [NOTES_KEY]: notes });
   return { ok: true, note };
 }
 
 export async function deleteNote(url: string): Promise<void> {
   const notes = await getNotes();
   delete notes[noteKey(url)];
-  await chrome.storage.local.set({ [NOTES_KEY]: notes });
+  await browser.storage.local.set({ [NOTES_KEY]: notes });
 }
 
 export async function searchNotes(query: string): Promise<TabNote[]> {
@@ -91,7 +92,7 @@ export async function searchNotes(query: string): Promise<TabNote[]> {
 }
 
 export async function getSessions(): Promise<Session[]> {
-  const raw = await chrome.storage.local.get(SESSIONS_KEY);
+  const raw = await browser.storage.local.get(SESSIONS_KEY);
   return (raw[SESSIONS_KEY] as Session[]) ?? [];
 }
 
@@ -104,7 +105,7 @@ export async function saveSession(name: string, tabs: Session["tabs"]): Promise<
     createdAt: Date.now(),
   };
   sessions.unshift(session);
-  await chrome.storage.local.set({ [SESSIONS_KEY]: sessions });
+  await browser.storage.local.set({ [SESSIONS_KEY]: sessions });
   return session;
 }
 
@@ -114,24 +115,24 @@ export async function updateSessionTabs(
 ): Promise<Session[]> {
   const sessions = await getSessions();
   const next = sessions.map((s) => (s.id === id ? { ...s, tabs } : s));
-  await chrome.storage.local.set({ [SESSIONS_KEY]: next });
+  await browser.storage.local.set({ [SESSIONS_KEY]: next });
   return next;
 }
 
 export async function deleteSession(id: string): Promise<void> {
   const sessions = await getSessions();
-  await chrome.storage.local.set({
+  await browser.storage.local.set({
     [SESSIONS_KEY]: sessions.filter((s) => s.id !== id),
   });
 }
 
 export async function getPremium(): Promise<boolean> {
-  const raw = await chrome.storage.local.get(PREMIUM_KEY);
+  const raw = await browser.storage.local.get(PREMIUM_KEY);
   return Boolean(raw[PREMIUM_KEY]);
 }
 
 export async function setPremium(value: boolean): Promise<void> {
-  await chrome.storage.local.set({ [PREMIUM_KEY]: value });
+  await browser.storage.local.set({ [PREMIUM_KEY]: value });
 }
 
 export { noteKey };
