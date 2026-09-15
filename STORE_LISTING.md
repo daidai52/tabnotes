@@ -86,10 +86,63 @@ extension's only UI surface.
 ## Support URL
 
 ```
-https://github.com/daidai52/tabnotes
+https://github.com/daidai52/tabnotes/issues
+```
+
+## Homepage URL
+
+```
+https://daidai52.github.io/tabnotes/
 ```
 
 ## Privacy policy URL
 
-Host `PRIVACY.md` and paste the public URL here. The Chrome Web Store requires
-a reachable privacy policy URL for any extension that handles browsing data.
+```
+https://daidai52.github.io/tabnotes/privacy.html
+```
+
+Live. The Chrome Web Store requires a reachable privacy policy URL for any
+extension that handles browsing data; this one returns HTTP 200 and contains no
+trackers.
+
+## Screenshots
+
+Upload all four, in this order. Each is exactly 1280×800, which satisfies both
+Chrome (1280×800 or 640×400) and Edge.
+
+| File | Shows |
+|---|---|
+| `shots/shot-1-notes.png` | The note list, with the composer and Save button |
+| `shots/shot-2-search.png` | Searching `thursday deck` and one matching note |
+| `shots/shot-3-edit.png` | A note open in inline edit mode |
+| `shots/shot-4-sessions.png` | An expanded session with per-tab ✕ buttons |
+
+Regenerate any of them with:
+
+```bash
+node shots/gen.cjs && node shots/render.cjs   # the four 1280x800 shots
+node shots/promo.cjs                          # the 440x280 promo tile
+```
+
+## Promo tile (Edge, optional)
+
+`shots/promo-440x280.png` — 440×280, the "small promotional tile" size. Chrome
+no longer shows a promo tile; Edge does.
+
+## Things only you can fill in
+
+These cannot be scripted — the store asks for them on your account:
+
+- **Developer name / publisher** — shows publicly
+- **Contact email** — must be one you can receive mail at
+- **Category** — `Productivity` → `Workflow`
+- **Refund / support statement** — a sentence is enough
+
+## Store URLs once published
+
+Paste these back into `README.md` and `docs/index.html` (both currently point at
+the generic store homepages):
+
+- Chrome: `https://chromewebstore.google.com/detail/<id>`
+- Edge: `https://microsoftedge.microsoft.com/addons/detail/<id>`
+- Firefox: `https://addons.mozilla.org/firefox/addon/tabnotes/`

@@ -21,5 +21,16 @@ export default defineConfig({
       96: "icon/96.png",
       128: "icon/128.png",
     },
+    // AMO rejects an unsigned submission without a stable add-on id.
+    ...(browser === "firefox"
+      ? {
+          browser_specific_settings: {
+            gecko: {
+              id: "tabnotes@daidai52.github.io",
+              strict_min_version: "109.0",
+            },
+          },
+        }
+      : {}),
   }),
 });

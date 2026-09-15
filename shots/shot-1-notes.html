@@ -1,0 +1,172 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../entrypoints/sidepanel/style.css">
+<style>
+  /* The headless renderer defaults to prefers-color-scheme: light. These
+     declarations come after the linked stylesheet, so they pin the panel to
+     the dark theme the brand uses. */
+  :root{
+    --bg:#0f1115; --bg-card:#171a21; --bg-hover:#1e222b; --border:#262b36;
+    --text:#e6e9ef; --text-muted:#8b93a7; --accent:#4f8cff; --accent-hover:#6ba0ff;
+    --danger:#ff5c5c; --star:#ffb020; --radius:8px;
+  }
+  html,body{width:1280px;height:800px;overflow:hidden;margin:0}
+  body{
+    position:relative; color:#e8ecf4;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    background:
+      radial-gradient(1100px 620px at 4% 0%, #1b2740 0%, transparent 62%),
+      radial-gradient(820px 520px at 62% 108%, #1a2136 0%, transparent 58%),
+      #0b0e14;
+  }
+  .copy{
+    position:absolute; left:0; top:0; height:100%;
+    width:820px; box-sizing:border-box;
+    padding:0 56px 0 74px;
+    display:flex; flex-direction:column; justify-content:center;
+  }
+  .kicker{
+    display:inline-block; align-self:flex-start;
+    font-size:11.5px; font-weight:700; letter-spacing:.14em;
+    text-transform:uppercase; color:#4f8cff; margin-bottom:20px;
+    border:1px solid rgba(79,140,255,.4); border-radius:99px; padding:5px 13px;
+  }
+  h1{font-size:42px; line-height:1.14; letter-spacing:-.032em; margin:0 0 20px; font-weight:800}
+  h1 em{font-style:normal; color:#4f8cff}
+  p{font-size:16px; line-height:1.6; color:#8b95ab; margin:0; max-width:600px}
+
+  /* the live side panel, pinned to the right edge at its real width */
+  .panel{
+    position:absolute; right:0; top:0;
+    width:460px; height:800px;
+    background:var(--bg); border-left:1px solid #262b36;
+    display:flex; flex-direction:column;
+    box-shadow:-26px 0 70px rgba(0,0,0,.6);
+  }
+  .panel .app{display:flex; flex-direction:column; height:100%; min-height:0}
+  .panel .list{flex:1; overflow:hidden}
+  .panel .editor{margin-top:auto}
+  /* it is a still image — drop the affordances that imply interaction */
+  .panel *{cursor:default !important}
+  textarea{resize:none}
+  /* show the per-tab ✕ even without a hover, so the shot reads as editable */
+  .session-tab .icon-btn.tiny.lit{opacity:1}
+</style></head>
+<body>
+  <div class="copy">
+    <span class="kicker">TabNotes</span>
+    <h1>You have 30 tabs open.<br>In three days you'll<br>forget <em>why</em>.</h1>
+    <p>Every tab manager sorts your tabs by title and URL. But the reason you opened one was never in the title — it was in your head. TabNotes lets you write it down, then find the tab again by searching what you wrote.</p>
+  </div>
+  <div class="panel"><div id="root"><div class="app">
+  
+  <div class="header">
+    <div class="brand">
+      <span class="brand-name">TabNotes</span>
+      <span class="counter">14 / 50</span>
+    </div>
+    <div class="tabs-row">
+      <button class="tab-btn active">Notes</button>
+      <button class="tab-btn ">Sessions</button>
+    </div>
+  </div>
+  
+  <div class="search">
+    <input type="search" value="" placeholder="Search notes, titles, tags…">
+  </div>
+  <div class="list">
+  <div class="card current">
+    <div class="card-head">
+      <img class="favicon" src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%227%22%20fill%3D%22%23e0593f%22%2F%3E%3Ctext%20x%3D%2216%22%20y%3D%2222%22%20font-family%3D%22Arial%2CHelvetica%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EA%3C%2Ftext%3E%3C%2Fsvg%3E" alt="">
+      <span class="card-title">Competitor Pricing — Acme Corp</span>
+      <span class="badge-current">Now</span>
+    </div>
+    <div class="card-note">competitor pricing, cite in Thursday deck</div>
+    <div class="card-foot">
+      <button class="icon-btn open">↗</button>
+      <button class="icon-btn">✎</button>
+      <button class="icon-btn starred">★</button>
+      <button class="icon-btn">✕</button>
+    </div>
+  </div>
+  <div class="card ">
+    <div class="card-head">
+      <img class="favicon" src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%227%22%20fill%3D%22%2324292f%22%2F%3E%3Ctext%20x%3D%2216%22%20y%3D%2222%22%20font-family%3D%22Arial%2CHelvetica%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EG%3C%2Ftext%3E%3C%2Fsvg%3E" alt="">
+      <span class="card-title">GitHub — wxt-dev/wxt</span>
+      
+    </div>
+    <div class="card-note">bug repro, check again after deploy</div>
+    <div class="card-foot">
+      <button class="icon-btn open">↗</button>
+      <button class="icon-btn">✎</button>
+      <button class="icon-btn ">★</button>
+      <button class="icon-btn">✕</button>
+    </div>
+  </div>
+  <div class="card ">
+    <div class="card-head">
+      <img class="favicon" src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%227%22%20fill%3D%22%23c98a2e%22%2F%3E%3Ctext%20x%3D%2216%22%20y%3D%2222%22%20font-family%3D%22Arial%2CHelvetica%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ER%3C%2Ftext%3E%3C%2Fsvg%3E" alt="">
+      <span class="card-title">How to halve a cake recipe</span>
+      
+    </div>
+    <div class="card-note">recipe — halve the sugar</div>
+    <div class="card-foot">
+      <button class="icon-btn open">↗</button>
+      <button class="icon-btn">✎</button>
+      <button class="icon-btn starred">★</button>
+      <button class="icon-btn">✕</button>
+    </div>
+  </div>
+  <div class="card ">
+    <div class="card-head">
+      <img class="favicon" src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%227%22%20fill%3D%22%23ff6600%22%2F%3E%3Ctext%20x%3D%2216%22%20y%3D%2222%22%20font-family%3D%22Arial%2CHelvetica%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EY%3C%2Ftext%3E%3C%2Fsvg%3E" alt="">
+      <span class="card-title">Hacker News — the tab hoarding thread</span>
+      
+    </div>
+    <div class="card-note">the thread about tab hoarding, quote the 25-tabs stat</div>
+    <div class="card-foot">
+      <button class="icon-btn open">↗</button>
+      <button class="icon-btn">✎</button>
+      <button class="icon-btn ">★</button>
+      <button class="icon-btn">✕</button>
+    </div>
+  </div>
+  <div class="card ">
+    <div class="card-head">
+      <img class="favicon" src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%227%22%20fill%3D%22%23a259ff%22%2F%3E%3Ctext%20x%3D%2216%22%20y%3D%2222%22%20font-family%3D%22Arial%2CHelvetica%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EF%3C%2Ftext%3E%3C%2Fsvg%3E" alt="">
+      <span class="card-title">Figma — Dashboard v3</span>
+      
+    </div>
+    <div class="card-note">hand off to Chen before Friday</div>
+    <div class="card-foot">
+      <button class="icon-btn open">↗</button>
+      <button class="icon-btn">✎</button>
+      <button class="icon-btn ">★</button>
+      <button class="icon-btn">✕</button>
+    </div>
+  </div>
+  <div class="card ">
+    <div class="card-head">
+      <img class="favicon" src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%227%22%20fill%3D%22%234285f4%22%2F%3E%3Ctext%20x%3D%2216%22%20y%3D%2222%22%20font-family%3D%22Arial%2CHelvetica%2Csans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ED%3C%2Ftext%3E%3C%2Fsvg%3E" alt="">
+      <span class="card-title">Designing for the side panel</span>
+      
+    </div>
+    <div class="card-note">read before building the next panel layout</div>
+    <div class="card-foot">
+      <button class="icon-btn open">↗</button>
+      <button class="icon-btn">✎</button>
+      <button class="icon-btn ">★</button>
+      <button class="icon-btn">✕</button>
+    </div>
+  </div></div>
+  
+  <div class="editor">
+    <div class="editor-title">Figma — Dashboard v3</div>
+    <textarea placeholder="Why did you open this tab? What do you need from it?"></textarea>
+    <div class="editor-actions">
+      <button class="btn primary save" >Save</button>
+    </div>
+    <div class="editor-hint">Enter to save · Shift+Enter for a new line</div>
+  </div>
+</div></div></div>
+</body></html>
