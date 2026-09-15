@@ -1,6 +1,7 @@
-# Chrome Web Store Listing
+# Store Listing Copy
 
-Paste these into the developer console when submitting.
+Paste these into the developer console when submitting. Covers Firefox (AMO),
+Microsoft Edge, and the Chrome Web Store; the differences are called out inline.
 
 ## Name (max 45 chars)
 
@@ -37,6 +38,36 @@ search, privacy
 model. Deliberately skipped: `security` reads as a security-tool tag
 (alongside antivirus and password managers) and would pull in the wrong
 audience.
+
+## Search terms (Edge only)
+
+Edge has a free-text search-terms field that AMO and Chrome lack. Limits: at
+most **7 terms**, **21 words** total, **30 characters** per term. Not shown to
+users — it only feeds store search.
+
+```
+tab manager
+notes
+tab notes
+session manager
+tab session
+search tabs
+productivity
+```
+
+## Edge-only fields
+
+Three things Edge asks for that the other two stores do not:
+
+| Field | Value |
+|---|---|
+| Search terms | the block above |
+| Promo tile, 1400×560 | optional; `shots/promo-440x280.png` is the small tile and suffices |
+| Properties → Website | `https://daidai52.github.io/tabnotes/` |
+
+Edge keeps privacy information on a **dedicated Privacy page** (moved out of
+Properties in 2026), so the policy URL goes there rather than in the listing
+form:
 
 ## Detailed description
 

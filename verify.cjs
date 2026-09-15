@@ -119,6 +119,28 @@ if (src) {
   note(junk.length === 0, "no build logs or node_modules in the sources zip");
   note(/package-lock\.json/.test(list), "package-lock.json included (reproducible install)");
   note(/wxt\.config\.ts/.test(list), "wxt.config.ts included (build config)");
+
+  // The reviewer builds from this archive. If it lags the shipped bundle, the
+  // rebuild will not match what was submitted and the version is rejected.
+  const srcRead = (f) => {
+    try {
+      return out(`unzip -p ".output/${src}" "${f}"`);
+    } catch {
+      return "";
+    }
+  };
+  const srcHas = (f, needle) => srcRead(f).includes(needle);
+  note(/from "\.\/browser"/.test(srcRead("lib/storage.ts")), "sources: storage uses the browser module");
+  note(/from "\.\/browser"/.test(srcRead("lib/tabs.ts")), "sources: tabs uses the browser module");
+  note(
+    !/await chrome\.(tabs|storage)\./.test(srcRead("lib/storage.ts") + srcRead("lib/tabs.ts")),
+    "sources: no bare chrome.* call sites remain",
+  );
+  note(
+    srcHas("wxt.config.ts", 'strict_min_version: "142.0"'),
+    "sources: strict_min_version matches the shipped manifest",
+  );
+  note(srcHas("package.json", `"version": "${version}"`), "sources: version matches");
 } else {
   note(false, "sources zip produced");
 }
