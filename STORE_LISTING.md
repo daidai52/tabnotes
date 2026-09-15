@@ -67,7 +67,15 @@ Three things Edge asks for that the other two stores do not:
 
 Edge keeps privacy information on a **dedicated Privacy page** (moved out of
 Properties in 2026), so the policy URL goes there rather than in the listing
-form:
+form.
+
+**Wording:** the detailed description below says "Chrome's side panel". On the
+Edge listing, change that one word to "Edge's side panel" — telling Edge users
+about a Chrome feature reads as a copy-paste job and costs installs. Same for
+the AMO listing, where the surface is a sidebar rather than a side panel.
+
+A fill-in-order checklist lives at
+`~/Desktop/TabNotes-Screenshots/EDGE-填表清单.md`.
 
 ## Detailed description
 
