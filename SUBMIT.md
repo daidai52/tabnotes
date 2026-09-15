@@ -7,9 +7,9 @@ Do Edge first — it is free, and the review is the most forgiving.
 
 | Thing | Where |
 |---|---|
-| Chrome/Edge package | `.output/tabnotes-0.1.0-chrome.zip` |
-| Firefox package | `.output/tabnotes-0.1.0-firefox.zip` |
-| Firefox source package (AMO requires it) | `.output/tabnotes-0.1.0-sources.zip` |
+| Chrome/Edge package | `.output/tabnotes-0.1.1-chrome.zip` |
+| Firefox package | `.output/tabnotes-0.1.1-firefox.zip` |
+| Firefox source package (AMO requires it) | `.output/tabnotes-0.1.1-sources.zip` |
 | Four screenshots, exactly 1280×800 | `shots/shot-{1..4}-*.png` |
 | Promo tile, 440×280 | `shots/promo-440x280.png` |
 | Privacy policy, live | https://daidai52.github.io/tabnotes/privacy.html |
@@ -17,11 +17,19 @@ Do Edge first — it is free, and the review is the most forgiving.
 | Support URL | https://github.com/daidai52/tabnotes/issues |
 | Store copy (name, description, justifications) | `STORE_LISTING.md` |
 
-Rebuild the packages at any time:
+The version number lives only in `package.json`. WXT copies it into the
+manifest and into the zip filenames, so there is one number to change.
+
+Rebuild and re-verify at any time:
 
 ```bash
-npm run zip && npm run zip:firefox
+node verify.cjs
 ```
+
+That builds both packages and then checks them the way a reviewer would:
+manifest invariants, the Firefox background script, a `web-ext lint` run (the
+same validator AMO uses on upload), and the contents of the sources archive.
+It exits non-zero if anything regresses.
 
 ## 1. Microsoft Edge Add-ons — free, do this first
 
@@ -48,22 +56,41 @@ npm run zip && npm run zip:firefox
 
 1. Sign in with a Firefox account. No fee.
 2. **Submit a New Add-on** → *On this site* → upload
-   `.output/tabnotes-0.1.0-firefox.zip`.
-3. The package already declares
+   `.output/tabnotes-0.1.1-firefox.zip`.
+3. Upload a **new version**, not a new add-on — `tabnotes@daidai52.github.io`
+   is already registered as the add-on id, and reusing it is what lets existing
+   installs update in place.
+4. The package already declares
    `browser_specific_settings.gecko.data_collection_permissions: { required:
    ["none"] }` in its manifest. AMO has required this for every **new** add-on
    since 2025-11-03, and rejects the upload outright without it — the error
    reads *"The data_collection_permissions property is missing"*. `"none"` is
    accurate: TabNotes transmits nothing.
-4. When it asks for source code, upload
-   `.output/tabnotes-0.1.0-sources.zip`. It asks because the build is a bundle;
+5. When it asks for source code, upload
+   `.output/tabnotes-0.1.1-sources.zip`. It asks because the build is a bundle;
    supplying the sources keeps the review moving.
-5. Paste the listing copy, upload the screenshots, set the privacy policy URL.
-6. Firefox opens TabNotes in the **sidebar**, not a side panel — that is
+6. Paste the listing copy, upload the screenshots, set the privacy policy URL.
+7. Firefox opens TabNotes in the **sidebar**, not a side panel — that is
    expected, and WXT maps it automatically via `sidebar_action`.
-7. If AMO rejects the Manifest V2 package, build the MV3 variant instead:
-   `npx wxt build -b firefox --mv3` then zip `.output/firefox-mv3`. It carries
-   the same `data_collection_permissions` declaration.
+
+### What changed in 0.1.1
+
+Fix this before the add-on is approved, or ship it as the first update —
+either way it needs to land:
+
+- **The toolbar icon did nothing on Firefox.** The background script guarded
+  its only side-effect behind a `!== "firefox"` check, so the compiled
+  `background.js` was an empty function. It now binds
+  `browserAction.onClicked` → `sidebarAction.open()`. Without this a new user
+  clicks the icon, sees nothing happen, and uninstalls.
+- **`strict_min_version` was 109.0, which was wrong.** `web-ext lint` flagged
+  it: `data_collection_permissions` is only understood from Firefox 140
+  (desktop) and 142 (Android). A 109 install would have received the add-on
+  without being able to read the consent declaration. Raised to `142.0`.
+
+If AMO rejects the Manifest V2 package, build the MV3 variant instead:
+`npx wxt build -b firefox --mv3` then zip `.output/firefox-mv3`. It carries the
+same `data_collection_permissions` declaration.
 
 ## 3. Chrome Web Store — $5 one-time
 
