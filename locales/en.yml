@@ -1,0 +1,32 @@
+extName: TabNotes — Tab Manager with Notes
+extDescription: Give every tab a note. Find any tab again by what it was for, not just its title.
+
+tabNotes: Notes
+sessions: Sessions
+searchPlaceholder: Search notes, titles, tags…
+noteCount: '{count} notes'
+noteCountLimit: '{count} / {limit}'
+emptyNoNotes: |-
+  No notes yet.
+  Write one below and it will follow this page around.
+emptyNoMatch: No notes match that search.
+badgeNow: Now
+saveNote: Save
+textareaPlaceholder: Why did you open this tab? What do you need from it?
+noActiveTab: No active tab
+star: Star
+delete: Delete
+limitReached: You've hit the {limit}-note free limit. Starred notes and existing notes are kept — upgrade to Pro for unlimited notes.
+saveSession: Save all tabs in this window
+emptyNoSessions: No saved sessions yet.
+tabsCount: '{count} tabs'
+deleteSession: Delete session
+openPage: Open this page
+restoreAll: Open all tabs
+edit: Edit note
+saveEdit: Save
+cancel: Cancel
+removeFromSession: Remove from session
+addCurrentTab: Add current tab
+saved: Saved ✓
+saveHint: Enter to save · Shift+Enter for a new line

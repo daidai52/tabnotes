@@ -1,0 +1,32 @@
+extName: TabNotes — 带笔记的标签页管理器
+extDescription: 给每个标签页写一句备注。以后靠"当时想干嘛"找回来，而不是靠标题。
+
+tabNotes: 笔记
+sessions: 会话
+searchPlaceholder: 搜索笔记、标题、标签…
+noteCount: '{count} 条笔记'
+noteCountLimit: '{count} / {limit}'
+emptyNoNotes: |-
+  还没有笔记。
+  在下面写一条，它会跟着这个页面走。
+emptyNoMatch: 没有匹配的笔记。
+badgeNow: 当前
+saveNote: 保存
+textareaPlaceholder: 你为什么打开这个标签页？想从里面得到什么？
+noActiveTab: 没有活动标签页
+star: 星标
+delete: 删除
+limitReached: 已达免费版 {limit} 条上限。已有笔记和星标笔记会保留 —— 升级 Pro 可解除限制。
+saveSession: 保存本窗口所有标签页
+emptyNoSessions: 还没有保存的会话。
+tabsCount: '{count} 个标签页'
+deleteSession: 删除会话
+openPage: 跳转到这个网页
+restoreAll: 打开全部
+edit: 编辑笔记
+saveEdit: 保存
+cancel: 取消
+removeFromSession: 从这个会话移除
+addCurrentTab: 把当前标签页加进来
+saved: 已保存 ✓
+saveHint: 回车保存 · Shift+回车换行

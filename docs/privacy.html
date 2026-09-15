@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy — TabNotes</title>
+<meta name="description" content="TabNotes stores everything on your own computer. Nothing is sent anywhere.">
+<link rel="icon" href="icon/favicon.png">
+<style>
+  :root{
+    --bg:#0d1016; --panel:#151922; --line:#242b3a;
+    --text:#e8ecf4; --muted:#8b95ab; --accent:#4f8cff; --green:#22a06b;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    line-height:1.7; -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--accent); text-decoration:none}
+  a:hover{text-decoration:underline}
+  header{border-bottom:1px solid var(--line)}
+  .nav{max-width:760px; margin:0 auto; padding:0 24px; display:flex; align-items:center; gap:12px; height:60px}
+  .nav img{width:24px; height:24px; border-radius:6px}
+  .nav b{font-size:14px}
+  .nav .sp{flex:1}
+  .nav a{font-size:13px; color:var(--muted)}
+  main{max-width:760px; margin:0 auto; padding:48px 24px 80px}
+  h1{font-size:34px; letter-spacing:-.025em; margin:0 0 6px; font-weight:800}
+  .updated{color:var(--muted); font-size:13px; margin:0 0 36px}
+  h2{font-size:18px; letter-spacing:-.01em; margin:38px 0 10px; font-weight:700}
+  p,li{font-size:14.5px; color:#c8d0e0}
+  ul{padding-left:22px}
+  li{margin-bottom:5px}
+  .callout{
+    background:rgba(34,160,107,.09); border:1px solid rgba(34,160,107,.35);
+    border-radius:10px; padding:16px 20px; margin:0 0 8px;
+  }
+  .callout p{margin:0; color:#b6e8d0; font-size:14.5px}
+  table{width:100%; border-collapse:collapse; margin:14px 0; font-size:14px}
+  th,td{text-align:left; padding:10px 12px; border-bottom:1px solid var(--line); vertical-align:top}
+  th{color:var(--muted); font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:.05em}
+  td:first-child{white-space:nowrap; color:var(--accent); font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:13px}
+  footer{border-top:1px solid var(--line); padding:26px 0 48px; color:var(--muted); font-size:13px}
+  footer .fl{max-width:760px; margin:0 auto; padding:0 24px; display:flex; gap:20px; flex-wrap:wrap}
+  @media(max-width:600px){ h1{font-size:26px} main{padding:32px 20px 60px} }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <img src="icon/icon.png" alt="">
+    <b>TabNotes</b>
+    <span class="sp"></span>
+    <a href="index.html">← Back to home</a>
+  </div>
+</header>
+
+<main>
+  <h1>Privacy Policy</h1>
+  <p class="updated">Last updated: September 2026</p>
+
+  <div class="callout">
+    <p><strong>The short version:</strong> TabNotes stores everything on your own computer. Nothing is sent anywhere.</p>
+  </div>
+
+  <h2>What TabNotes stores</h2>
+  <ul>
+    <li>The notes you write for a page</li>
+    <li>The page's URL and title (used to match the note back to the page)</li>
+    <li>The page's favicon URL (so the note list shows site icons)</li>
+    <li>Saved tab sessions — the list of URLs you chose to save</li>
+    <li>Whether you have unlocked the Pro upgrade</li>
+  </ul>
+
+  <h2>Where it is stored</h2>
+  <p>All of the above is written to <code>chrome.storage.local</code> inside your browser profile. It never leaves your device. TabNotes has no server, no database, and no analytics.</p>
+
+  <h2>What TabNotes does not do</h2>
+  <ul>
+    <li>It does not transmit your data to any server</li>
+    <li>It does not collect personal information</li>
+    <li>It does not track your browsing history</li>
+    <li>It does not use cookies or any third-party analytics</li>
+    <li>It does not sell or share data with anyone</li>
+  </ul>
+
+  <h2>Permissions and why they are needed</h2>
+  <table>
+    <thead>
+      <tr><th>Permission</th><th>Why</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>tabs</td>
+        <td>Read the active tab's URL and title so a note can be attached to the right page, and list the tabs in a window when you save a session.</td>
+      </tr>
+      <tr>
+        <td>storage</td>
+        <td>Save your notes and sessions locally on your device.</td>
+      </tr>
+      <tr>
+        <td>sidePanel</td>
+        <td>Display the TabNotes interface in Chrome's side panel, which is the extension's only UI surface.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Payments</h2>
+  <p>TabNotes is free to use up to a limit of 50 notes. If you choose to unlock the Pro upgrade, the payment is handled entirely by a third-party payment processor — TabNotes never receives or stores your card number or billing details. The only thing stored on your device is a single flag recording that the upgrade was unlocked.</p>
+
+  <h2>Deleting your data</h2>
+  <p>Delete individual notes with the ✕ button in the note list. Removing the extension from <code>chrome://extensions</code> deletes all stored notes and sessions permanently. Because nothing is stored on a server, there is no other copy to request or erase.</p>
+
+  <h2>Children</h2>
+  <p>TabNotes is a general-purpose productivity tool and is not directed at children. It collects no personal information from anyone.</p>
+
+  <h2>Changes to this policy</h2>
+  <p>If this policy changes, the "last updated" date above will change with it. Because the extension stores no data off your device, future changes cannot retroactively affect data that was never collected.</p>
+
+  <h2>Contact</h2>
+  <p>Questions or concerns: open an issue at <a href="https://github.com/daidai52/tabnotes/issues" target="_blank" rel="noopener">github.com/daidai52/tabnotes/issues</a>.</p>
+</main>
+
+<footer>
+  <div class="fl">
+    <span>© 2026 TabNotes</span>
+    <a href="index.html">Home</a>
+    <a href="https://github.com/daidai52/tabnotes" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</footer>
+
+</body>
+</html>

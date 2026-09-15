@@ -1,0 +1,25 @@
+import { noteKey } from "./storage";
+
+/**
+ * Jump to the page a note belongs to.
+ *
+ * If the page is already open somewhere, switch to that tab instead of piling
+ * on a duplicate — which is the whole point of the extension. URLs are
+ * compared through `noteKey` so a note still matches after tracking params or
+ * a #hash have been added to the live tab.
+ */
+export async function focusOrOpenTab(url: string): Promise<void> {
+  const target = noteKey(url);
+  const tabs = await chrome.tabs.query({});
+  const existing = tabs.find((t) => t.url && noteKey(t.url) === target);
+
+  if (existing?.id != null) {
+    await chrome.tabs.update(existing.id, { active: true });
+    if (existing.windowId != null) {
+      await chrome.windows.update(existing.windowId, { focused: true });
+    }
+    return;
+  }
+
+  await chrome.tabs.create({ url });
+}
